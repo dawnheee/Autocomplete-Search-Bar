@@ -5,7 +5,6 @@ export const convertResponse = (axiosResponse: AxiosResponse) => {
   const response = new Response(JSON.stringify(data), {
     status: axiosResponse.status,
     statusText: axiosResponse.statusText,
-    headers: {},
   });
   return response;
 };

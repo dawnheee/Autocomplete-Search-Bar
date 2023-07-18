@@ -14,9 +14,8 @@ function Search() {
   const fetchData = async (debouncedLetters: string) => {
     try {
       const arr = await searchService(debouncedLetters);
-      console.log(debouncedLetters);
-      console.log("search 최종결과: ", arr);
-      setSickArr(arr);
+      const sickArray = Array.isArray(arr) ? arr : JSON.parse(arr);
+      setSickArr(sickArray.slice(0, 10));
     } catch (error) {
       console.error("Error fetching data:", error);
     }
