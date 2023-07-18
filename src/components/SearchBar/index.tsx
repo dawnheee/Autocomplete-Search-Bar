@@ -10,7 +10,6 @@ function SearchBar({ setLetters }: SearchBarProps) {
 
   return (
     <>
-      <h4>SearchBar</h4>
       <input onInput={inputChangeHandler} />
     </>
   );

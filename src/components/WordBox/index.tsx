@@ -1,19 +1,19 @@
 import React from "react";
 import { Sick } from "../../@type/types";
+import AutoCompletedItem from "../AutoCompletedItem";
+import * as s from "./style";
 
-interface WordBoxProps {
-  sickArr: Sick[];
-  isLoading: boolean;
-}
-
-function WordBox({ sickArr, isLoading }: WordBoxProps) {
+function WordBox({ sickArr }: { sickArr: Sick[] }) {
   console.log(sickArr);
 
   return (
     <div>
-      <h3>WordBox</h3>
-
-      {!isLoading ? <div>추천 검색어</div> : <div>Loading...</div>}
+      <h3>추천검색어</h3>
+      <s.Items>
+        {sickArr.map((sick, index) => (
+          <AutoCompletedItem key={index} name={sick.sickNm} />
+        ))}
+      </s.Items>
     </div>
   );
 }

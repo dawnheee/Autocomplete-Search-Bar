@@ -5,6 +5,8 @@ import WordBox from "../WordBox";
 import { useDebounce } from "../../hooks/useDebounce";
 import searchService from "../../service/api/serchAPI";
 import { Sick } from "../../@type/types";
+import * as s from "./style";
+import SearchingLetters from "../SearchingLetters";
 
 function Search() {
   const [letters, setLetters] = useState("");
@@ -33,10 +35,12 @@ function Search() {
 
   return (
     <div>
-      Search 컴포넌트
-      <SearchBar setLetters={setLetters} />
-      <SearchButton />
-      <WordBox sickArr={sickArr} isLoading={isLoading} />
+      <s.Section>
+        <SearchBar setLetters={setLetters} />
+        <SearchButton />
+      </s.Section>
+      <SearchingLetters letters={letters} isLoading={isLoading} />
+      <WordBox sickArr={sickArr} />
     </div>
   );
 }
