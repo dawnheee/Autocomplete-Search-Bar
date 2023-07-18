@@ -3,14 +3,32 @@ import SearchBar from "../SearchBar";
 import SearchButton from "../SearchButton";
 import WordBox from "../WordBox";
 import { useDebounce } from "../../hooks/useDebounce";
+import searchService from "../../service/api/serchAPI";
+import { Sick } from "../../@type/types";
+
 function Search() {
-  // searchBar에서 debouncedLetters 가져옴
-  // 여기서 config 객체를 만들까?
   const [letters, setLetters] = useState("");
   const debouncedLetters = useDebounce(letters);
+  const [sickArr, setSickArr] = useState<Sick[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const fetchData = async (debouncedLetters: string) => {
+    try {
+      setIsLoading(true);
+      const arr = await searchService(debouncedLetters);
+      const sickArray = Array.isArray(arr) ? arr : JSON.parse(arr);
+      setSickArr(sickArray.slice(0, 10));
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
-    console.log(debouncedLetters);
+    if (debouncedLetters !== "") {
+      fetchData(debouncedLetters);
+    }
   }, [debouncedLetters]);
 
   return (
@@ -18,7 +36,7 @@ function Search() {
       Search 컴포넌트
       <SearchBar setLetters={setLetters} />
       <SearchButton />
-      <WordBox />
+      <WordBox sickArr={sickArr} isLoading={isLoading} />
     </div>
   );
 }

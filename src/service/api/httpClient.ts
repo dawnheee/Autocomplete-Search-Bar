@@ -15,9 +15,9 @@ class HttpClient {
     });
   }
 
-  async get(config?: AxiosRequestConfig) {
+  async get(config: AxiosRequestConfig) {
     const response = await this.axios.get("", config);
-    return response.data;
+    return response;
   }
 }
 

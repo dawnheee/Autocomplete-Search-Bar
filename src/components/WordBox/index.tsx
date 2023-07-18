@@ -1,7 +1,21 @@
 import React from "react";
+import { Sick } from "../../@type/types";
 
-function WordBox() {
-  return <div>WordBox</div>;
+interface WordBoxProps {
+  sickArr: Sick[];
+  isLoading: boolean;
 }
 
-export default WordBox;
+function WordBox({ sickArr, isLoading }: WordBoxProps) {
+  console.log(sickArr);
+
+  return (
+    <div>
+      <h3>WordBox</h3>
+
+      {!isLoading ? <div>추천 검색어</div> : <div>Loading...</div>}
+    </div>
+  );
+}
+
+export default React.memo(WordBox);
