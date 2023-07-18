@@ -1,7 +1,13 @@
 import React from "react";
+import { Sick } from "../../@type/types";
 
-function WordBox() {
+interface WordBoxProps {
+  sickArr: Sick[];
+}
+
+function WordBox({ sickArr }: WordBoxProps) {
+  console.log(sickArr);
   return <div>WordBox</div>;
 }
 
-export default WordBox;
+export default React.memo(WordBox);

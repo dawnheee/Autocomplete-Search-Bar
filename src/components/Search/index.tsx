@@ -3,16 +3,28 @@ import SearchBar from "../SearchBar";
 import SearchButton from "../SearchButton";
 import WordBox from "../WordBox";
 import { useDebounce } from "../../hooks/useDebounce";
-import searchService from "../../service/serchAPI";
+import searchService from "../../service/api/serchAPI";
+import { Sick } from "../../@type/types";
 
 function Search() {
   const [letters, setLetters] = useState("");
   const debouncedLetters = useDebounce(letters);
+  const [sickArr, setSickArr] = useState<Sick[]>([]);
+
+  const fetchData = async (debouncedLetters: string) => {
+    try {
+      const arr = await searchService(debouncedLetters);
+      console.log(debouncedLetters);
+      console.log("search 최종결과: ", arr);
+      setSickArr(arr);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
   useEffect(() => {
-    console.log(debouncedLetters);
     if (debouncedLetters !== "") {
-      searchService(debouncedLetters);
+      fetchData(debouncedLetters);
     }
   }, [debouncedLetters]);
 
@@ -21,7 +33,7 @@ function Search() {
       Search 컴포넌트
       <SearchBar setLetters={setLetters} />
       <SearchButton />
-      <WordBox />
+      <WordBox sickArr={sickArr} />
     </div>
   );
 }
