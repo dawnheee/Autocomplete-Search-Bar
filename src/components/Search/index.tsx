@@ -10,14 +10,18 @@ function Search() {
   const [letters, setLetters] = useState("");
   const debouncedLetters = useDebounce(letters);
   const [sickArr, setSickArr] = useState<Sick[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const fetchData = async (debouncedLetters: string) => {
     try {
+      setIsLoading(true);
       const arr = await searchService(debouncedLetters);
       const sickArray = Array.isArray(arr) ? arr : JSON.parse(arr);
       setSickArr(sickArray.slice(0, 10));
     } catch (error) {
       console.error("Error fetching data:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -32,7 +36,7 @@ function Search() {
       Search 컴포넌트
       <SearchBar setLetters={setLetters} />
       <SearchButton />
-      <WordBox sickArr={sickArr} />
+      <WordBox sickArr={sickArr} isLoading={isLoading} />
     </div>
   );
 }
