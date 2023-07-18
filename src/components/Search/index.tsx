@@ -3,14 +3,17 @@ import SearchBar from "../SearchBar";
 import SearchButton from "../SearchButton";
 import WordBox from "../WordBox";
 import { useDebounce } from "../../hooks/useDebounce";
+import searchService from "../../service/serchAPI";
+
 function Search() {
-  // searchBar에서 debouncedLetters 가져옴
-  // 여기서 config 객체를 만들까?
   const [letters, setLetters] = useState("");
   const debouncedLetters = useDebounce(letters);
 
   useEffect(() => {
     console.log(debouncedLetters);
+    if (debouncedLetters !== "") {
+      searchService(debouncedLetters);
+    }
   }, [debouncedLetters]);
 
   return (

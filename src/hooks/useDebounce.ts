@@ -1,6 +1,3 @@
-// return debounced 된 값
-// input: 그냥 값
-
 import { useEffect, useState } from "react";
 
 export const useDebounce = (word: string) => {
