@@ -7,14 +7,14 @@ import searchService from "../../service/api/serchAPI";
 import { Sick } from "../../@type/types";
 import * as s from "./style";
 import SearchingLetters from "../SearchingLetters";
-
 function Search() {
   const [letters, setLetters] = useState("");
   const debouncedLetters = useDebounce(letters);
   const [autoCompleteArr, setAutoCompleteArr] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [isSearching, setIsSearching] = useState(false);
+  const [isShowing, setIsShowing] = useState(false);
   const [recentArr, setRecentArr] = useState<string[]>([]);
+  const [isFocused, setIsFocused] = useState(false);
 
   const fetchData = async (debouncedLetters: string) => {
     try {
@@ -40,41 +40,47 @@ function Search() {
 
   const searchButtonHandler = () => {
     setRecentArr((prevRecentArr) => [letters, ...prevRecentArr]);
-    setIsSearching(false);
+    setIsShowing(false);
   };
 
   const choiceItemHandler = (name: string) => {
     setLetters(name);
     setRecentArr((prevRecentArr) => [name, ...prevRecentArr]);
-    setIsSearching(false);
+    setIsShowing(false);
+    setIsFocused(false); //
   };
 
   return (
-    <div>
+    <div onFocus={() => setIsFocused(true)} onBlur={() => setIsFocused(false)}>
       <s.Section>
         <SearchBar
           letters={letters}
           setLetters={setLetters}
-          setIsSearching={setIsSearching}
+          setIsShowing={setIsShowing}
+          isOnFocus={isFocused}
         />
         <SearchButton onClick={searchButtonHandler} />
       </s.Section>
-      {isSearching && (
+      {isShowing && (
         <SearchingLetters letters={letters} isLoading={isLoading} />
       )}
 
-      {isSearching ? (
+      {isShowing ? (
         letters !== "" ? (
           <WordBox
             sickArr={autoCompleteArr}
             type="auto"
             choiceItemHandler={choiceItemHandler}
+            setIsFocused={setIsFocused}
+            isFocused={isFocused}
           />
         ) : (
           <WordBox
             sickArr={recentArr}
             type="recent"
             choiceItemHandler={choiceItemHandler}
+            setIsFocused={setIsFocused}
+            isFocused={isFocused}
           />
         )
       ) : null}
