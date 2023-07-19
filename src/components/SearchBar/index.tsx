@@ -44,7 +44,9 @@ function SearchBar({ letters, setLetters, setIsShowing }: SearchBarProps) {
         value={letters}
         placeholder="질환명을 입력해주세요"
       />
-      <s.DeleteButton visibility={letters !== ""} onClick={deleteHandler}>
+      <s.DeleteButton
+        visibile={letters !== "" ? true : false}
+        onClick={deleteHandler}>
         X
       </s.DeleteButton>
     </s.InputContainer>

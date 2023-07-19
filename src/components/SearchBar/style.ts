@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { darkgray } from "../../constant/style/colors";
 
 interface DeleteButtonProps {
-  visibility: boolean;
+  visibile: boolean;
 }
 
 export const InputContainer = styled.section``;
@@ -27,5 +27,5 @@ export const DeleteButton = styled.button<DeleteButtonProps>`
   position: relative;
 
   right: 12px;
-  visibility: ${(props) => (props.visibility ? "visible" : "hidden")};
+  visibility: ${(props) => (props.visibile ? "visible" : "hidden")};
 `;
