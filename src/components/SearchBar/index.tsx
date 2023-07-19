@@ -4,10 +4,16 @@ import * as s from "./style";
 interface SearchBarProps {
   letters: string;
   setLetters: (value: string) => void;
-  setIsSearching: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsShowing: React.Dispatch<React.SetStateAction<boolean>>;
+  isOnFocus: boolean;
 }
 
-function SearchBar({ letters, setLetters, setIsSearching }: SearchBarProps) {
+function SearchBar({
+  letters,
+  setLetters,
+  setIsShowing,
+  isOnFocus,
+}: SearchBarProps) {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const inputChangeHandler = (event: React.FormEvent<HTMLInputElement>) => {
@@ -19,7 +25,7 @@ function SearchBar({ letters, setLetters, setIsSearching }: SearchBarProps) {
   };
 
   const inputFocusHandler = () => {
-    setIsSearching(true);
+    setIsShowing(true);
   };
 
   useEffect(() => {
@@ -31,8 +37,7 @@ function SearchBar({ letters, setLetters, setIsSearching }: SearchBarProps) {
 
   const handleClickOutside = (event: MouseEvent) => {
     if (inputRef.current && !inputRef.current.contains(event.target as Node)) {
-      console.log("다른 곳 클릭");
-      setIsSearching(false);
+      setIsShowing(false);
     }
   };
 
@@ -44,7 +49,9 @@ function SearchBar({ letters, setLetters, setIsSearching }: SearchBarProps) {
         onFocus={inputFocusHandler}
         value={letters}
       />
-      <s.Button onClick={deleteHandler}>x</s.Button>
+      <s.Button onClick={deleteHandler} className={isOnFocus ? "focused" : ""}>
+        x
+      </s.Button>
     </>
   );
 }

@@ -1,5 +1,13 @@
 import styled from "@emotion/styled";
 
-export const Button = styled.button`
+interface ButtonProps {
+  isFocused: boolean;
+}
+
+export const Button = styled.button<ButtonProps>`
   display: flex;
+  ${(props) =>
+    props.isFocused &&
+    `background-color: yellow;
+  `}
 `;
