@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect } from "react";
 import AutoCompletedItem from "../AutoCompletedItem";
 import * as s from "./style";
 import useKey from "../../hooks/useKey";
@@ -17,7 +17,6 @@ function WordBox({
   isFocused,
   setIsFocused,
 }: WordBoxProps) {
-  const [isMovingMouse, setIsMovingMouse] = useState(true);
   const wordBoxRef = useRef<HTMLDivElement>(null);
 
   const { focusIndex, setFocusIndex, keyboardNavigation } = useKey(
@@ -28,7 +27,6 @@ function WordBox({
   );
 
   const mousedown = (index: number) => {
-    setIsMovingMouse(true);
     setFocusIndex(index);
   };
 
@@ -38,12 +36,10 @@ function WordBox({
       window.removeEventListener("keydown", keyboardNavigation);
     };
   }, [keyboardNavigation]);
-  console.log(focusIndex);
-  console.log(isMovingMouse);
 
   return (
-    <div ref={wordBoxRef}>
-      <h3> {type === "auto" ? "추천검색어" : "최근검색어"}</h3>
+    <s.WordBox ref={wordBoxRef}>
+      <s.Text> {type === "auto" ? "추천 검색어" : "최근 검색어"}</s.Text>
       <s.Items>
         {sickArr.length !== 0 ? (
           <s.Items>
@@ -60,10 +56,12 @@ function WordBox({
             ))}
           </s.Items>
         ) : (
-          <div>검색어 없음</div>
+          <s.Message>
+            {type === "auto" ? "추천 검색어" : "최근 검색어"}가 없습니다
+          </s.Message>
         )}
       </s.Items>
-    </div>
+    </s.WordBox>
   );
 }
 
