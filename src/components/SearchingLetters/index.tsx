@@ -1,7 +1,7 @@
 import React from "react";
 import { IconSize } from "../../constant/style/size";
 import SearchIcon from "../../asset/icon/SearchIcon";
-import { gray } from "../../constant/style/colors";
+import { darkgray } from "../../constant/style/colors";
 import * as s from "./style";
 function SearchingLetters({
   letters,
@@ -12,8 +12,10 @@ function SearchingLetters({
 }) {
   return (
     <s.Section>
-      <SearchIcon size={IconSize} color={gray} />
-      {!isLoading ? <div>{letters}</div> : <span>검색중...</span>}
+      <SearchIcon size={IconSize} color={darkgray} />
+      <s.Text>
+        {!isLoading ? <span>{letters}</span> : <span>검색중...</span>}
+      </s.Text>
     </s.Section>
   );
 }

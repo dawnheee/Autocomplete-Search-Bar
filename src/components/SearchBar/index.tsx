@@ -5,15 +5,9 @@ interface SearchBarProps {
   letters: string;
   setLetters: (value: string) => void;
   setIsShowing: React.Dispatch<React.SetStateAction<boolean>>;
-  isOnFocus: boolean;
 }
 
-function SearchBar({
-  letters,
-  setLetters,
-  setIsShowing,
-  isOnFocus,
-}: SearchBarProps) {
+function SearchBar({ letters, setLetters, setIsShowing }: SearchBarProps) {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const inputChangeHandler = (event: React.FormEvent<HTMLInputElement>) => {
@@ -42,17 +36,18 @@ function SearchBar({
   };
 
   return (
-    <>
-      <input
+    <s.InputContainer>
+      <s.Input
         ref={inputRef}
         onInput={inputChangeHandler}
         onFocus={inputFocusHandler}
         value={letters}
+        placeholder="질환명을 입력해주세요"
       />
-      <s.Button onClick={deleteHandler} className={isOnFocus ? "focused" : ""}>
-        x
-      </s.Button>
-    </>
+      <s.DeleteButton visibility={letters !== ""} onClick={deleteHandler}>
+        X
+      </s.DeleteButton>
+    </s.InputContainer>
   );
 }
 
