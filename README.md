@@ -84,14 +84,14 @@ npm run start
 
 ### ✔️ 1. 질환명 검색 시 API 호출 통해 검색어 추천 기능
 
-<img src="https://github.com/dawnheee/pre-onboarding-11th-4/assets/99721472/e06e38e5-81d9-49d3-a8de-d1db7893a953" alt="검색어 추천 기능"/>
+<img src="https://blog.kakaocdn.net/dn/dg9BAO/btsofQHbN5w/pC23uF3WuCty9Gl3IWr531/img.gif" alt="검색어 추천 기능"/>
 
 - input에 입력되는 값으로 API 요청
 - 응답 결과 중 10개의 요소를 추천 검색어 state에 저장하고 노출
 
 ### ✔️ 2. API 호출별로 로컬 캐싱 구현
 
-<img src="https://github.com/dawnheee/pre-onboarding-11th-4/assets/99721472/3b44d1a3-993d-4c54-8b97-3d8baf3481a7" alt="로컬 캐싱 기능"/>
+<img src="https://blog.kakaocdn.net/dn/dmpLbx/btsobaNnOVn/R8r2WxlxJ53Wh0N9Mfkt1K/img.gif" alt="로컬 캐싱 기능"/>
 
 로컬 캐싱 기능은 크게 3가지 기능으로 나누어 구현했습니다.
 
@@ -145,7 +145,7 @@ const setCache = async (q: string, response: Response) => {
 
 ### ✔️ 3. 입력마다 API 호출하지 않도록 API 호출 횟수를 줄이는 전략 수립 및 실행
 
-<img src="https://github.com/dawnheee/pre-onboarding-11th-4/assets/99721472/25940146-6428-42d9-b6dd-6f3c26d7e0ad" alt="API 호출 줄이는 전략"/>
+<img src="https://blog.kakaocdn.net/dn/d3Fbpz/btsoe9UOw3H/YiaNIbmqtBGvK37NC05BN0/img.gif" alt="API 호출 줄이는 전략"/>
 
 - `setTimeout`을 이용하여 input에 입력된 값들이 모두 API 호출로 이어지지 않도록 값의 입력을 지연시켰습니다.
 
@@ -162,9 +162,9 @@ const setCache = async (q: string, response: Response) => {
   }, [word]);
 ```
 
-### 키보드만으로 추천 검색어들로 이동 가능하도록 구현
+### ✔️ 4. 키보드만으로 추천 검색어들로 이동 가능하도록 구현
 
-<img src="https://github.com/dawnheee/pre-onboarding-11th-4/assets/99721472/843f8788-1bb2-481a-8a45-ef0af8ecfae9" alt="키보드 기능"/>
+<img src="https://blog.kakaocdn.net/dn/doVRpj/btsofppnVgJ/f19IljaJ6ljocQdPSy3aj0/img.gif" alt="키보드 기능"/>
 
 **useKey Hook**
 
