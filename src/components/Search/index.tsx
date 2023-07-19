@@ -39,52 +39,58 @@ function Search() {
   }, [debouncedLetters]);
 
   const searchButtonHandler = () => {
-    setRecentArr((prevRecentArr) => [letters, ...prevRecentArr]);
-    setIsShowing(false);
+    if (letters !== "") {
+      setRecentArr((prevRecentArr) => [letters, ...prevRecentArr]);
+      setIsShowing(false);
+    }
   };
 
   const choiceItemHandler = (name: string) => {
     setLetters(name);
     setRecentArr((prevRecentArr) => [name, ...prevRecentArr]);
     setIsShowing(false);
-    setIsFocused(false); //
+    setIsFocused(false);
   };
 
   return (
-    <div onFocus={() => setIsFocused(true)} onBlur={() => setIsFocused(false)}>
-      <s.Section>
+    <s.Layout
+      onFocus={() => setIsFocused(true)}
+      onBlur={() => setIsFocused(false)}>
+      <s.BarButtonSection>
         <SearchBar
           letters={letters}
           setLetters={setLetters}
           setIsShowing={setIsShowing}
-          isOnFocus={isFocused}
         />
         <SearchButton onClick={searchButtonHandler} />
-      </s.Section>
-      {isShowing && (
-        <SearchingLetters letters={letters} isLoading={isLoading} />
-      )}
+      </s.BarButtonSection>
 
       {isShowing ? (
-        letters !== "" ? (
-          <WordBox
-            sickArr={autoCompleteArr}
-            type="auto"
-            choiceItemHandler={choiceItemHandler}
-            setIsFocused={setIsFocused}
-            isFocused={isFocused}
-          />
-        ) : (
-          <WordBox
-            sickArr={recentArr}
-            type="recent"
-            choiceItemHandler={choiceItemHandler}
-            setIsFocused={setIsFocused}
-            isFocused={isFocused}
-          />
-        )
+        <s.LetterWordSection>
+          {letters && (
+            <SearchingLetters letters={letters} isLoading={isLoading} />
+          )}
+
+          {letters !== "" ? (
+            <WordBox
+              sickArr={autoCompleteArr}
+              type="auto"
+              choiceItemHandler={choiceItemHandler}
+              setIsFocused={setIsFocused}
+              isFocused={isFocused}
+            />
+          ) : (
+            <WordBox
+              sickArr={recentArr}
+              type="recent"
+              choiceItemHandler={choiceItemHandler}
+              setIsFocused={setIsFocused}
+              isFocused={isFocused}
+            />
+          )}
+        </s.LetterWordSection>
       ) : null}
-    </div>
+    </s.Layout>
   );
 }
 
