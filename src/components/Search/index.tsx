@@ -11,15 +11,20 @@ import SearchingLetters from "../SearchingLetters";
 function Search() {
   const [letters, setLetters] = useState("");
   const debouncedLetters = useDebounce(letters);
-  const [sickArr, setSickArr] = useState<Sick[]>([]);
+  const [autoCompleteArr, setAutoCompleteArr] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isSearching, setIsSearching] = useState(false);
+  const [recentArr, setRecentArr] = useState<string[]>([]);
 
   const fetchData = async (debouncedLetters: string) => {
     try {
       setIsLoading(true);
       const arr = await searchService(debouncedLetters);
-      const sickArray = Array.isArray(arr) ? arr : JSON.parse(arr);
-      setSickArr(sickArray.slice(0, 10));
+      const sickArray: Sick[] = Array.isArray(arr) ? arr : JSON.parse(arr);
+      const sickNmArray: string[] = sickArray
+        .slice(0, 10)
+        .map((item) => item.sickNm);
+      setAutoCompleteArr(sickNmArray);
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
@@ -33,14 +38,46 @@ function Search() {
     }
   }, [debouncedLetters]);
 
+  const searchButtonHandler = () => {
+    setRecentArr((prevRecentArr) => [letters, ...prevRecentArr]);
+    setIsSearching(false);
+  };
+
+  const choiceItemHandler = (name: string) => {
+    setLetters(name);
+    setRecentArr((prevRecentArr) => [name, ...prevRecentArr]);
+    setIsSearching(false);
+  };
+
   return (
     <div>
       <s.Section>
-        <SearchBar setLetters={setLetters} />
-        <SearchButton />
+        <SearchBar
+          letters={letters}
+          setLetters={setLetters}
+          setIsSearching={setIsSearching}
+        />
+        <SearchButton onClick={searchButtonHandler} />
       </s.Section>
-      <SearchingLetters letters={letters} isLoading={isLoading} />
-      <WordBox sickArr={sickArr} />
+      {isSearching && (
+        <SearchingLetters letters={letters} isLoading={isLoading} />
+      )}
+
+      {isSearching ? (
+        letters !== "" ? (
+          <WordBox
+            sickArr={autoCompleteArr}
+            type="auto"
+            choiceItemHandler={choiceItemHandler}
+          />
+        ) : (
+          <WordBox
+            sickArr={recentArr}
+            type="recent"
+            choiceItemHandler={choiceItemHandler}
+          />
+        )
+      ) : null}
     </div>
   );
 }
