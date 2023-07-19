@@ -173,7 +173,7 @@ const setCache = async (q: string, response: Response) => {
 
 </br>
 
-## 고민한 사항
+## 🌟 고민한 사항
 
 ### 🖍️ **캐싱 기능 로직**
 
