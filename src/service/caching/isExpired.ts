@@ -7,7 +7,6 @@ const isExpired = (cachedRes: Response) => {
   }
   const fetchDate = new Date(headerDate).getTime();
   const today = new Date().getTime();
-  console.log("만료?", today - fetchDate > HALF_DAY_MILISECOND);
   return today - fetchDate > HALF_DAY_MILISECOND;
 };
 

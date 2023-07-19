@@ -16,13 +16,11 @@ const searchService = async (q: string): Promise<string | Sick[]> => {
   const cachedResponse = await getCachedResponse(q);
   if (cachedResponse !== null) {
     const cachedData = await cachedResponse.text();
-    // console.log("캐시 결과:", cachedData);
     return cachedData;
   } else {
     try {
       const axiosResponse: AxiosResponse = await httpClient.get(config);
       console.log("calling api");
-      // console.log("API 호출 결과:", axiosResponse.data);
       const response = convertResponse(axiosResponse);
       setCache(q, response);
       return axiosResponse.data;
