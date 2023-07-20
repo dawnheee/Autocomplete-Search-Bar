@@ -53,7 +53,7 @@ function WordBox({
                     key={index}
                     index={index}
                     mousedown={mousedown}
-                    name={sick}
+                    sick={sick}
                     choiceItemHandler={choiceItemHandler}
                     setFocusIndex={setFocusIndex}
                     isFocused={focusIndex === index}
