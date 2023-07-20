@@ -67,12 +67,11 @@ function Search() {
       </s.BarButtonSection>
       {isShowing ? (
         <s.LetterWordSection>
-          {letters && (
-            <SearchingLetters letters={letters} isLoading={isLoading} />
-          )}
+          {letters && <SearchingLetters letters={letters} />}
 
           {letters !== "" ? (
             <WordBox
+              isLoading={isLoading}
               sickArr={autoCompleteArr}
               type="auto"
               choiceItemHandler={choiceItemHandler}
@@ -81,6 +80,7 @@ function Search() {
             />
           ) : (
             <WordBox
+              isLoading={isLoading}
               sickArr={recentArr}
               type="recent"
               choiceItemHandler={choiceItemHandler}
