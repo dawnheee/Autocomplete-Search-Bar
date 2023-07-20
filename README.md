@@ -84,7 +84,7 @@ npm run start
 
 ### ✔️ 1. 질환명 검색 시 API 호출 통해 검색어 추천 기능
 
-<img src="https://blog.kakaocdn.net/dn/dg9BAO/btsofQHbN5w/pC23uF3WuCty9Gl3IWr531/img.gif" alt="검색어 추천 기능"/>
+<img src="https://blog.kakaocdn.net/dn/doVRpj/btsofppnVgJ/f19IljaJ6ljocQdPSy3aj0/img.gif" alt="검색어 추천 기능"/>
 
 - input에 입력되는 값으로 API 요청
 - 응답 결과 중 10개의 요소를 추천 검색어 state에 저장하고 노출
@@ -103,8 +103,9 @@ npm run start
 
 아래는 캐시를 구현한 setCache 함수의 코드입니다.
 
+`src/service/caching/setCache.ts`
 ```
-// src/service/caching/setCache.ts
+...
 const setCache = async (q: string, response: Response) => {
   const sickStorage = await caches.open(cacheName);
   const cloneResponse = response.clone();
@@ -126,21 +127,23 @@ const setCache = async (q: string, response: Response) => {
 
 캐시를 저장할 때 헤더에 현재 시간을 포함시킵니다.
 
+`src/service/caching/setCache.ts`
 ```
-// src/service/caching/setCache.ts
-
+...
  const newHeaders = new Headers(cloneResponse.headers);
  newHeaders.append(HEADER_DATE, new Date().toISOString());
+...
 ```
 
 이후 요청 전 캐시의 유효 여부를 확인할 때는 임의로 설정한 `유효한 시간`과 캐시 생성 시간을 비교하여 `true`, `false`를 리턴합니다.
 
+`src/service/caching/isExpired.ts`
 ```
-// src/service/caching/isExpired.ts
-
+...
   const fetchDate = new Date(headerDate).getTime();
   const today = new Date().getTime();
   return today - fetchDate > HALF_DAY_MILISECOND;
+...
 ```
 
 ### ✔️ 3. 입력마다 API 호출하지 않도록 API 호출 횟수를 줄이는 전략 수립 및 실행
@@ -149,9 +152,9 @@ const setCache = async (q: string, response: Response) => {
 
 - `setTimeout`을 이용하여 input에 입력된 값들이 모두 API 호출로 이어지지 않도록 값의 입력을 지연시켰습니다.
 
+`src/hooks/useDebounce.ts`
 ```
-// src/hooks/useDebounce.ts
-
+...
   useEffect(() => {
     const handler = setTimeout(() => {
       setDebounced(word);
@@ -160,11 +163,12 @@ const setCache = async (q: string, response: Response) => {
       clearTimeout(handler);
     };
   }, [word]);
+...
 ```
 
 ### ✔️ 4. 키보드만으로 추천 검색어들로 이동 가능하도록 구현
 
-<img src="https://blog.kakaocdn.net/dn/doVRpj/btsofppnVgJ/f19IljaJ6ljocQdPSy3aj0/img.gif" alt="키보드 기능"/>
+<img src="https://blog.kakaocdn.net/dn/dg9BAO/btsofQHbN5w/pC23uF3WuCty9Gl3IWr531/img.gif" alt="키보드 기능"/>
 
 **useKey Hook**
 
