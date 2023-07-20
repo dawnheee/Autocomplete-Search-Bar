@@ -4,7 +4,7 @@ import * as s from "./style";
 import useKey from "../../hooks/useKey";
 
 interface WordBoxProps {
-  sickArr: string[];
+  wordArr: string[];
   type: string;
   choiceItemHandler: (name: string) => void;
   isFocused: boolean;
@@ -12,7 +12,7 @@ interface WordBoxProps {
   isLoading: boolean;
 }
 function WordBox({
-  sickArr,
+  wordArr,
   type,
   choiceItemHandler,
   isFocused,
@@ -22,7 +22,7 @@ function WordBox({
   const wordBoxRef = useRef<HTMLDivElement>(null);
 
   const { focusIndex, setFocusIndex, keyboardNavigation } = useKey(
-    sickArr,
+    wordArr,
     isFocused,
     setIsFocused,
     choiceItemHandler
@@ -44,29 +44,27 @@ function WordBox({
       <s.Text> {type === "auto" ? "추천 검색어" : "최근 검색어"}</s.Text>
 
       {!isLoading ? (
-        <>
-          <s.Items>
-            {sickArr.length !== 0 ? (
-              <s.Items>
-                {sickArr.map((sick, index) => (
-                  <AutoCompletedItem
-                    key={index}
-                    index={index}
-                    mousedown={mousedown}
-                    sick={sick}
-                    choiceItemHandler={choiceItemHandler}
-                    setFocusIndex={setFocusIndex}
-                    isFocused={focusIndex === index}
-                  />
-                ))}
-              </s.Items>
-            ) : (
-              <s.Message>
-                {type === "auto" ? "추천 검색어" : "최근 검색어"}가 없습니다
-              </s.Message>
-            )}
-          </s.Items>
-        </>
+        <s.Items>
+          {wordArr.length !== 0 ? (
+            <s.Items>
+              {wordArr.map((word, index) => (
+                <AutoCompletedItem
+                  key={index}
+                  index={index}
+                  mousedown={mousedown}
+                  word={word}
+                  choiceItemHandler={choiceItemHandler}
+                  setFocusIndex={setFocusIndex}
+                  isFocused={focusIndex === index}
+                />
+              ))}
+            </s.Items>
+          ) : (
+            <s.Message>
+              {type === "auto" ? "추천 검색어" : "최근 검색어"}가 없습니다
+            </s.Message>
+          )}
+        </s.Items>
       ) : (
         <s.Message>검색중</s.Message>
       )}

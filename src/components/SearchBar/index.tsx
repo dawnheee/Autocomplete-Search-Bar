@@ -2,20 +2,27 @@ import React, { useEffect, useRef } from "react";
 import * as s from "./style";
 
 interface SearchBarProps {
-  letters: string;
-  setLetters: (value: string) => void;
+  inputLetters: string;
+  setInputLetters: (value: string) => void;
   setIsShowing: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function SearchBar({ letters, setLetters, setIsShowing }: SearchBarProps) {
+function SearchBar({
+  inputLetters,
+  setInputLetters,
+  setIsShowing,
+  setIsLoading,
+}: SearchBarProps) {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const inputChangeHandler = (event: React.FormEvent<HTMLInputElement>) => {
-    setLetters(event.currentTarget.value);
+    setIsLoading(true);
+    setInputLetters(event.currentTarget.value);
   };
 
   const deleteHandler = () => {
-    setLetters("");
+    setInputLetters("");
   };
 
   const inputFocusHandler = () => {
@@ -41,11 +48,11 @@ function SearchBar({ letters, setLetters, setIsShowing }: SearchBarProps) {
         ref={inputRef}
         onInput={inputChangeHandler}
         onFocus={inputFocusHandler}
-        value={letters}
+        value={inputLetters}
         placeholder="질환명을 입력해주세요"
       />
       <s.DeleteButton
-        visibile={letters !== "" ? true : false}
+        visibile={inputLetters !== "" ? true : false}
         onClick={deleteHandler}>
         X
       </s.DeleteButton>

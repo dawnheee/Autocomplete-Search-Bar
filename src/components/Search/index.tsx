@@ -8,24 +8,24 @@ import { Sick } from "../../@type/types";
 import * as s from "./style";
 import SearchingLetters from "../SearchingLetters";
 import { Color } from "../../constant/style/colors";
+
 function Search() {
-  const [letters, setLetters] = useState("");
-  const debouncedLetters = useDebounce(letters);
-  const [autoCompleteArr, setAutoCompleteArr] = useState<string[]>([]);
+  const [inputLetters, setInputLetters] = useState("");
+  const debouncedLetters = useDebounce(inputLetters);
+  const [autoCompleteWordArr, setAutoCompleteWordArr] = useState<string[]>([]);
+  const [recentArr, setRecentArr] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isShowing, setIsShowing] = useState(false);
-  const [recentArr, setRecentArr] = useState<string[]>([]);
   const [isFocused, setIsFocused] = useState(false);
 
   const fetchData = async (debouncedLetters: string) => {
     try {
-      setIsLoading(true);
       const arr = await searchService(debouncedLetters);
       const sickArray: Sick[] = Array.isArray(arr) ? arr : JSON.parse(arr);
       const sickNmArray: string[] = sickArray
         .slice(0, 10)
         .map((item) => item.sickNm);
-      setAutoCompleteArr(sickNmArray);
+      setAutoCompleteWordArr(sickNmArray);
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
@@ -40,39 +40,37 @@ function Search() {
   }, [debouncedLetters]);
 
   const searchButtonHandler = () => {
-    if (letters !== "") {
-      setRecentArr((prevRecentArr) => [letters, ...prevRecentArr]);
+    if (inputLetters !== "") {
+      setRecentArr((prev) => [inputLetters, ...prev]);
       setIsShowing(false);
     }
   };
 
   const choiceItemHandler = (name: string) => {
-    setLetters(name);
-    setRecentArr((prevRecentArr) => [name, ...prevRecentArr]);
+    setInputLetters(name);
+    setRecentArr((prev) => [name, ...prev]);
     setIsShowing(false);
     setIsFocused(false);
   };
 
   return (
-    <s.Layout
-      onFocus={() => setIsFocused(true)}
-      onBlur={() => setIsFocused(false)}>
+    <section onFocus={() => setIsFocused(true)}>
       <s.BarButtonSection border={isShowing ? `${Color.pointBlue}` : "none"}>
         <SearchBar
-          letters={letters}
-          setLetters={setLetters}
+          inputLetters={inputLetters}
+          setInputLetters={setInputLetters}
           setIsShowing={setIsShowing}
+          setIsLoading={setIsLoading}
         />
         <SearchButton onClick={searchButtonHandler} />
       </s.BarButtonSection>
       {isShowing ? (
         <s.LetterWordSection>
-          {letters && <SearchingLetters letters={letters} />}
-
-          {letters !== "" ? (
+          {inputLetters && <SearchingLetters inputLetters={inputLetters} />}
+          {inputLetters !== "" ? (
             <WordBox
               isLoading={isLoading}
-              sickArr={autoCompleteArr}
+              wordArr={autoCompleteWordArr}
               type="auto"
               choiceItemHandler={choiceItemHandler}
               setIsFocused={setIsFocused}
@@ -81,7 +79,7 @@ function Search() {
           ) : (
             <WordBox
               isLoading={isLoading}
-              sickArr={recentArr}
+              wordArr={recentArr}
               type="recent"
               choiceItemHandler={choiceItemHandler}
               setIsFocused={setIsFocused}
@@ -90,7 +88,7 @@ function Search() {
           )}
         </s.LetterWordSection>
       ) : null}
-    </s.Layout>
+    </section>
   );
 }
 

@@ -5,7 +5,7 @@ import { Color } from "../../constant/style/colors";
 import * as s from "./style";
 
 interface AutoCompletedItemProps {
-  sick: string;
+  word: string;
   choiceItemHandler: (name: string) => void;
   setFocusIndex: React.Dispatch<React.SetStateAction<number>>;
   isFocused: boolean;
@@ -15,23 +15,24 @@ interface AutoCompletedItemProps {
 
 function AutoCompletedItem({
   index,
-  sick,
+  word,
   choiceItemHandler,
   isFocused,
   mousedown,
 }: AutoCompletedItemProps) {
-  const getSubString = (sick: string) => {
-    if (sick.length > 31) {
-      return `${sick.substring(0, 32)}...`;
+  const getSubString = (word: string) => {
+    if (word.length > 31) {
+      return `${word.substring(0, 32)}...`;
     }
-    return sick;
+    return word;
   };
 
-  const substring = getSubString(sick);
+  const substring = getSubString(word);
+
   return (
     <s.Button
       isFocused={isFocused}
-      onClick={() => choiceItemHandler(sick)}
+      onClick={() => choiceItemHandler(word)}
       onMouseMove={() => mousedown(index)}>
       <SearchIcon size={IconSize} color={Color.darkGray} />
       <s.Text>{substring}</s.Text>

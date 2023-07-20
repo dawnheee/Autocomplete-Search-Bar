@@ -2,7 +2,7 @@ import { useCallback, useState } from "react";
 import { PUSH } from "../constant/key";
 
 const useKey = (
-  autoCompleteArr: string[],
+  autoCompleteWordArr: string[],
   isFocused: boolean,
   setIsFocused: React.Dispatch<React.SetStateAction<boolean>>,
   choiceItemHandler: (name: string) => void
@@ -13,7 +13,9 @@ const useKey = (
     (e: KeyboardEvent) => {
       if (!isFocused) return;
       if (e.key === PUSH.down) {
-        setFocusIndex((prev) => Math.min(prev + 1, autoCompleteArr.length - 1));
+        setFocusIndex((prev) =>
+          Math.min(prev + 1, autoCompleteWordArr.length - 1)
+        );
         return;
       }
 
@@ -23,11 +25,17 @@ const useKey = (
       }
 
       if (e.key === PUSH.enter) {
-        choiceItemHandler(autoCompleteArr[focusIndex]);
+        choiceItemHandler(autoCompleteWordArr[focusIndex]);
         setIsFocused(false);
       }
     },
-    [autoCompleteArr, focusIndex, isFocused, choiceItemHandler, setIsFocused]
+    [
+      autoCompleteWordArr,
+      focusIndex,
+      isFocused,
+      choiceItemHandler,
+      setIsFocused,
+    ]
   );
 
   return { focusIndex, setFocusIndex, keyboardNavigation };
