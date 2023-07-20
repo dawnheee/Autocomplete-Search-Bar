@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { white } from "../../constant/style/colors";
+import { lightgray, white } from "../../constant/style/colors";
 import { CSSProperties } from "react";
 
 interface BarButtonSectionProps {
@@ -26,4 +26,5 @@ export const LetterWordSection = styled.section`
   padding: 30px 0px 30px 0px;
   display: flex;
   flex-direction: column;
+  box-shadow: 0px 3px 2px ${lightgray};
 `;
