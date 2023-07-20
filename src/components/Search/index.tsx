@@ -7,6 +7,7 @@ import searchService from "../../service/api/serchAPI";
 import { Sick } from "../../@type/types";
 import * as s from "./style";
 import SearchingLetters from "../SearchingLetters";
+import { pointBlue } from "../../constant/style/colors";
 function Search() {
   const [letters, setLetters] = useState("");
   const debouncedLetters = useDebounce(letters);
@@ -56,7 +57,7 @@ function Search() {
     <s.Layout
       onFocus={() => setIsFocused(true)}
       onBlur={() => setIsFocused(false)}>
-      <s.BarButtonSection>
+      <s.BarButtonSection border={isShowing ? `${pointBlue}` : "none"}>
         <SearchBar
           letters={letters}
           setLetters={setLetters}
@@ -64,7 +65,6 @@ function Search() {
         />
         <SearchButton onClick={searchButtonHandler} />
       </s.BarButtonSection>
-
       {isShowing ? (
         <s.LetterWordSection>
           {letters && (

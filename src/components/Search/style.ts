@@ -1,9 +1,14 @@
 import styled from "@emotion/styled";
 import { white } from "../../constant/style/colors";
+import { CSSProperties } from "react";
+
+interface BarButtonSectionProps {
+  border: CSSProperties["border"];
+}
 
 export const Layout = styled.section``;
 
-export const BarButtonSection = styled.section`
+export const BarButtonSection = styled.section<BarButtonSectionProps>`
   display: flex;
   background-color: ${white};
   border-radius: 50px;
@@ -11,6 +16,7 @@ export const BarButtonSection = styled.section`
   display: flex;
   justify-content: center;
   align-items: center;
+  border: 2.5px solid ${(props) => props.border};
 `;
 
 export const LetterWordSection = styled.section`

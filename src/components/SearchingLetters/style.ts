@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { FontSize, BoxColumnMargin } from "../../constant/style/size";
+
 export const Section = styled.section`
   display: flex;
   align-items: center;
