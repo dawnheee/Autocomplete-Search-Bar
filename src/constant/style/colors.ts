@@ -1,7 +1,9 @@
-export const pointBlue = "#007BE9";
-export const skyBlue = "#CAE9FF";
-export const white = "#FFFFFF";
-export const darkgray = " #808080";
-export const lightgray = "#afafaf";
-export const gray = "#a5a5a5";
-export const highrightgray = "#F4F6FA";
+export const Color = {
+  pointBlue: "#007BE9",
+  lightBlue: "#CAE9FF",
+  white: "#FFFFFF",
+  darkGray: " #808080",
+  lightGray: "#afafaf",
+  gray: "#a5a5a5",
+  highrightGray: "#F4F6FA",
+};

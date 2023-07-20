@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { skyBlue, pointBlue } from "../../constant/style/colors";
+import { Color } from "../../constant/style/colors";
 export const Button = styled.button`
   cursor: pointer;
   border-radius: 50%;
@@ -7,12 +7,12 @@ export const Button = styled.button`
   outline: none;
   position: relative;
   right: 0.1rem;
-  background-color: ${pointBlue};
-  color: white;
+  background-color: ${Color.pointBlue};
+  color: ${Color.white};
   width: 3rem;
   height: 3rem;
 
   :hover {
-    background-color: ${skyBlue};
+    background-color: ${Color.lightBlue};
   }
 `;

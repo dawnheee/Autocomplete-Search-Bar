@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
-import { lightgray, white, darkgray } from "../../constant/style/colors";
+import { Color } from "../../constant/style/colors";
 import { FontSize, BoxColumnMargin } from "../../constant/style/size";
 
 export const WordBox = styled.div`
-  background-color: ${white};
+  background-color: ${Color.white};
 `;
 
 export const Items = styled.section`
@@ -13,13 +13,13 @@ export const Items = styled.section`
 
 export const Text = styled.div`
   font-size: ${FontSize.explain};
-  color: ${darkgray};
+  color: ${Color.darkGray};
   margin-bottom: ${BoxColumnMargin};
   font-weight: 500;
   padding: 0px 20px 0px 20px;
 `;
 
 export const Message = styled.span`
-  color: ${lightgray};
+  color: ${Color.lightGray};
   padding: 0px 20px 0px 20px;
 `;

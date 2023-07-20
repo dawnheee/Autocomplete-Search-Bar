@@ -1,7 +1,8 @@
 import React from "react";
 import * as s from "./style";
 import SearchIcon from "../../asset/icon/SearchIcon";
-import { white } from "../../constant/style/colors";
+
+import { Color } from "../../constant/style/colors";
 import { largerIconSize } from "../../constant/style/size";
 
 interface SearchButtonProps {
@@ -11,7 +12,7 @@ interface SearchButtonProps {
 function SearchButton({ onClick }: SearchButtonProps) {
   return (
     <s.Button onClick={onClick}>
-      <SearchIcon size={largerIconSize} color={white} />
+      <SearchIcon size={largerIconSize} color={Color.white} />
     </s.Button>
   );
 }

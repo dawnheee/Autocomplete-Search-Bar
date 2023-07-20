@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { highrightgray, white } from "../../constant/style/colors";
+import { Color } from "../../constant/style/colors";
 import { FontSize } from "../../constant/style/size";
 
 interface ButtonProps {
@@ -9,14 +9,14 @@ interface ButtonProps {
 export const Button = styled.button<ButtonProps>`
   display: flex;
   align-items: center;
-  background-color: ${white};
+  background-color: ${Color.white};
   border: none;
   height: 2.5rem;
   padding: 0px 20px 0px 20px;
 
   ${(props) =>
     props.isFocused &&
-    `background-color: ${highrightgray};
+    `background-color: ${Color.highrightGray};
   `}
 `;
 

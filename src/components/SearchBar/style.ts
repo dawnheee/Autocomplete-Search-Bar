@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
-import { darkgray } from "../../constant/style/colors";
-
+import { Color } from "../../constant/style/colors";
 interface DeleteButtonProps {
   visibile: boolean;
 }
@@ -21,7 +20,7 @@ export const DeleteButton = styled.button<DeleteButtonProps>`
   background: transparent;
   border: none;
   border-radius: 50%;
-  color: ${darkgray};
+  color: ${Color.darkGray};
   cursor: pointer;
   outline: none;
   position: relative;

@@ -1,7 +1,7 @@
 import React from "react";
 import SearchIcon from "../../asset/icon/SearchIcon";
 import { IconSize } from "../../constant/style/size";
-import { darkgray } from "../../constant/style/colors";
+import { Color } from "../../constant/style/colors";
 import * as s from "./style";
 
 interface AutoCompletedItemProps {
@@ -33,7 +33,7 @@ function AutoCompletedItem({
       isFocused={isFocused}
       onClick={() => choiceItemHandler(sick)}
       onMouseMove={() => mousedown(index)}>
-      <SearchIcon size={IconSize} color={darkgray} />
+      <SearchIcon size={IconSize} color={Color.darkGray} />
       <s.Text>{substring}</s.Text>
     </s.Button>
   );

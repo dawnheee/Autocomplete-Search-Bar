@@ -1,5 +1,6 @@
+import { Color } from "./../../constant/style/colors";
 import styled from "@emotion/styled";
-import { highrightgray, skyBlue, white } from "../../constant/style/colors";
+
 export const Background = styled.div`
   display: flex;
   flex-direction: column;
@@ -11,9 +12,9 @@ export const Background = styled.div`
 
   overflow: hidden;
   background: linear-gradient(
-    ${skyBlue} 60%,
-    ${highrightgray} 40%,
-    ${white} 100%
+    ${Color.lightBlue} 60%,
+    ${Color.highrightGray} 40%,
+    ${Color.white} 100%
   );
 `;
 
