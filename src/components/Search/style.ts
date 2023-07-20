@@ -7,8 +7,6 @@ interface BarButtonSectionProps {
   border: CSSProperties["border"];
 }
 
-export const Layout = styled.section``;
-
 export const BarButtonSection = styled.section<BarButtonSectionProps>`
   display: flex;
   background-color: ${Color.white};

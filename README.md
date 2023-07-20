@@ -104,6 +104,7 @@ npm run start
 아래는 캐시를 구현한 setCache 함수의 코드입니다.
 
 `src/service/caching/setCache.ts`
+
 ```
 ...
 const setCache = async (q: string, response: Response) => {
@@ -128,6 +129,7 @@ const setCache = async (q: string, response: Response) => {
 캐시를 저장할 때 헤더에 현재 시간을 포함시킵니다.
 
 `src/service/caching/setCache.ts`
+
 ```
 ...
  const newHeaders = new Headers(cloneResponse.headers);
@@ -138,6 +140,7 @@ const setCache = async (q: string, response: Response) => {
 이후 요청 전 캐시의 유효 여부를 확인할 때는 임의로 설정한 `유효한 시간`과 캐시 생성 시간을 비교하여 `true`, `false`를 리턴합니다.
 
 `src/service/caching/isExpired.ts`
+
 ```
 ...
   const fetchDate = new Date(headerDate).getTime();
@@ -153,6 +156,7 @@ const setCache = async (q: string, response: Response) => {
 - `setTimeout`을 이용하여 input에 입력된 값들이 모두 API 호출로 이어지지 않도록 값의 입력을 지연시켰습니다.
 
 `src/hooks/useDebounce.ts`
+
 ```
 ...
   useEffect(() => {
