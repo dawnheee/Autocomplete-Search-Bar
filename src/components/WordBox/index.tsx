@@ -10,6 +10,7 @@ interface WordBoxProps {
   isFocused: boolean;
   setIsFocused: React.Dispatch<React.SetStateAction<boolean>>;
   isLoading: boolean;
+  inputLetters: string;
 }
 function WordBox({
   wordArr,
@@ -18,6 +19,7 @@ function WordBox({
   isFocused,
   setIsFocused,
   isLoading,
+  inputLetters,
 }: WordBoxProps) {
   const wordBoxRef = useRef<HTMLDivElement>(null);
 
@@ -41,7 +43,10 @@ function WordBox({
 
   return (
     <s.WordBox ref={wordBoxRef}>
-      <s.Text> {type === "auto" ? "추천 검색어" : "최근 검색어"}</s.Text>
+      <s.Text>
+        {type === "auto" && "추천 검색어"}
+        {type === "recent" && "최근 검색어"}
+      </s.Text>
 
       {!isLoading ? (
         <s.Items>
@@ -61,12 +66,13 @@ function WordBox({
             </s.Items>
           ) : (
             <s.Message>
-              {type === "auto" ? "추천 검색어" : "최근 검색어"}가 없습니다
+              {type === "auto" && "추천 검색어"}
+              {type === "recent" && "최근 검색어"}가 없습니다
             </s.Message>
           )}
         </s.Items>
       ) : (
-        <s.Message>검색중</s.Message>
+        <div>{inputLetters.length > 1 && <s.Message>검색중</s.Message>}</div>
       )}
     </s.WordBox>
   );

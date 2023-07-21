@@ -67,25 +67,16 @@ function Search() {
       {isShowing ? (
         <s.LetterWordSection>
           {inputLetters && <SearchingLetters inputLetters={inputLetters} />}
-          {inputLetters !== "" ? (
-            <WordBox
-              isLoading={isLoading}
-              wordArr={autoCompleteWordArr}
-              type="auto"
-              choiceItemHandler={choiceItemHandler}
-              setIsFocused={setIsFocused}
-              isFocused={isFocused}
-            />
-          ) : (
-            <WordBox
-              isLoading={isLoading}
-              wordArr={recentArr}
-              type="recent"
-              choiceItemHandler={choiceItemHandler}
-              setIsFocused={setIsFocused}
-              isFocused={isFocused}
-            />
-          )}
+
+          <WordBox
+            inputLetters={inputLetters}
+            isLoading={isLoading}
+            wordArr={inputLetters !== "" ? autoCompleteWordArr : recentArr}
+            type={inputLetters !== "" ? "auto" : "recent"}
+            choiceItemHandler={choiceItemHandler}
+            setIsFocused={setIsFocused}
+            isFocused={isFocused}
+          />
         </s.LetterWordSection>
       ) : null}
     </section>
